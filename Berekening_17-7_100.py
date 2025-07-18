@@ -361,6 +361,112 @@ lijst_pressure.append(775)
 lijst_CoR.append(CoR)
 
 
+# berekeningen bij 190 mbar
+# import numpy as np
+import math as mt
+import matplotlib.pyplot as plt
+import csv as csv
+
+# Data bruikbaar maken
+lijst_ywaarde_string = []
+lijst_frame_string = []
+
+with open (f'berekeningen_metingen_17-7/results_100_190mbar_18-7.csv', 'r') as data:
+    for regel in data:
+        data_regels_opgeknipt = regel.strip().split()
+        # print(data_regels_opgeknipt)
+        data_getallen_opgeknipt = data_regels_opgeknipt[0].split(',')
+        # print( data_getallen_opgeknipt)
+        lijst_frame_string.append(data_getallen_opgeknipt[0])
+        lijst_ywaarde_string.append(data_getallen_opgeknipt[2])
+del lijst_frame_string[0]
+del lijst_ywaarde_string[0]
+
+lijst_ywaarde = [float(k) for k in lijst_ywaarde_string]
+lijst_frame = [int(i) for i in lijst_frame_string]
+# print(lijst_frame)
+# print(lijst_ywaarde)
+
+lijst_ywaarde_omgekeerd = []
+for element in range(0,len(lijst_frame)):
+    lijst_ywaarde_omgekeerd.append(1088 - lijst_ywaarde[element])
+
+# print(lijst_ywaarde_omgekeerd)
+
+# plot maken van de data
+plt.plot(lijst_frame, lijst_ywaarde_omgekeerd, 'r')
+plt.xlabel("Tijd (Frames)")
+plt.ylabel("Hoogte (pixels)")
+plt.show()
+
+# CoR berekenen
+lijst_max_hoogtes = []
+for element in range (0,len(lijst_ywaarde_omgekeerd)-1):
+    dhoogte = lijst_ywaarde_omgekeerd[element + 1] - lijst_ywaarde_omgekeerd[element]
+    if dhoogte < 0 and lijst_ywaarde_omgekeerd[element] - lijst_ywaarde_omgekeerd[element - 1] > 0:
+        lijst_max_hoogtes.append(lijst_ywaarde_omgekeerd[element])
+print(lijst_max_hoogtes)
+
+CoR = lijst_max_hoogtes[21]/lijst_max_hoogtes[20]
+print(f'The CoR bij 190 mbar is: {CoR} ')
+lijst_pressure.append(190)
+lijst_CoR.append(CoR)
+
+
+# berekeningen bij 95 mbar
+# import numpy as np
+import math as mt
+import matplotlib.pyplot as plt
+import csv as csv
+
+# Data bruikbaar maken
+lijst_ywaarde_string = []
+lijst_frame_string = []
+
+with open (f'berekeningen_metingen_17-7/results_100_95mbar_18-7.csv', 'r') as data:
+    for regel in data:
+        data_regels_opgeknipt = regel.strip().split()
+        # print(data_regels_opgeknipt)
+        data_getallen_opgeknipt = data_regels_opgeknipt[0].split(',')
+        # print( data_getallen_opgeknipt)
+        lijst_frame_string.append(data_getallen_opgeknipt[0])
+        lijst_ywaarde_string.append(data_getallen_opgeknipt[2])
+del lijst_frame_string[0]
+del lijst_ywaarde_string[0]
+
+lijst_ywaarde = [float(k) for k in lijst_ywaarde_string]
+lijst_frame = [int(i) for i in lijst_frame_string]
+# print(lijst_frame)
+# print(lijst_ywaarde)
+
+lijst_ywaarde_omgekeerd = []
+for element in range(0,len(lijst_frame)):
+    lijst_ywaarde_omgekeerd.append(1088 - lijst_ywaarde[element])
+
+# print(lijst_ywaarde_omgekeerd)
+
+# plot maken van de data
+plt.plot(lijst_frame, lijst_ywaarde_omgekeerd, 'r')
+plt.xlabel("Tijd (Frames)")
+plt.ylabel("Hoogte (pixels)")
+plt.show()
+
+# CoR berekenen
+lijst_max_hoogtes = []
+for element in range (0,len(lijst_ywaarde_omgekeerd)-1):
+    dhoogte = lijst_ywaarde_omgekeerd[element + 1] - lijst_ywaarde_omgekeerd[element]
+    if dhoogte < 0 and lijst_ywaarde_omgekeerd[element] - lijst_ywaarde_omgekeerd[element - 1] > 0:
+        lijst_max_hoogtes.append(lijst_ywaarde_omgekeerd[element])
+print(lijst_max_hoogtes)
+
+CoR = lijst_max_hoogtes[21]/lijst_max_hoogtes[20]
+print(f'The CoR bij 95 mbar is: {CoR} ')
+lijst_pressure.append(95)
+lijst_CoR.append(CoR)
+
+
+
+
 # plot maken van CoR uitgezet tegenover druk 
 plt.plot(lijst_pressure, lijst_CoR, 'o')
 plt.xlabel("druk (mbar)")
